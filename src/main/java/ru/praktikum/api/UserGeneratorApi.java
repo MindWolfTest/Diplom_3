@@ -1,13 +1,17 @@
 package ru.praktikum.api;
 
+import com.github.javafaker.Faker;
+
 public class UserGeneratorApi
 {
-    public static UserModel createCurrentRandomUser(String email, String password, String name)
+    public static UserModel createCurrentRandomUser()
     {
+        Faker faker = new Faker();
+
         return UserModel.builder()
-                .email(email)
-                .password(password)
-                .name(name)
+                .email(faker.internet().safeEmailAddress())
+                .password(faker.internet().password(6, 8))
+                .name(faker.name().firstName())
                 .build();
     }
 }

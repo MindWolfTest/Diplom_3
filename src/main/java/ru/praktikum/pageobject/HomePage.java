@@ -143,5 +143,4 @@ public class HomePage
                 .click();
         return this;
     }
-
 }

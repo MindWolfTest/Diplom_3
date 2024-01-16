@@ -1,13 +1,16 @@
 package ru.praktikum;
 
-import com.github.javafaker.Faker;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
 import ru.praktikum.api.CreateUserApi;
 import ru.praktikum.api.DeleteUserApi;
 import ru.praktikum.api.UserModel;
@@ -15,17 +18,18 @@ import ru.praktikum.pageobject.HomePage;
 import ru.praktikum.pageobject.LoginPage;
 import ru.praktikum.pageobject.PersonalAccountPage;
 
+
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static ru.praktikum.api.UserGeneratorApi.createCurrentRandomUser;
+import static ru.praktikum.constants.ApiConst.*;
 import static ru.praktikum.constants.URL.HOME_PAGE;
 import static ru.praktikum.driver.WebDriverCreator.createWebDriver;
 
 public class PersonalAccountTest
 {
     private WebDriver driver;
-    Faker faker = new Faker();
-    private String email = faker.internet().safeEmailAddress();
-    private String password = faker.internet().password(6, 8);
-    private String name = faker.name().firstName();
+    UserModel user;
     protected String accessToken;
 
     @Before
@@ -33,9 +37,12 @@ public class PersonalAccountTest
     {
         driver = createWebDriver();
         RestAssured.baseURI = HOME_PAGE;
-        UserModel user = createCurrentRandomUser(email, password, name);
+        user = createCurrentRandomUser();
+
         CreateUserApi createUser = new CreateUserApi();
-        createUser.createUserApi(user);
+        Response response = createUser.createUserApi(user);
+        response.then().assertThat().statusCode(SC_OK).and().body(SUCCESS, equalTo(TRUE));
+        accessToken = response.path(ACCESS_TOKEN);
     }
 
     @Test
@@ -44,14 +51,13 @@ public class PersonalAccountTest
     public void loginUserTest()
     {
         LoginPage objEnterToAccount = new LoginPage(driver);
+
         objEnterToAccount
                 .openLoginPage()
                 .checkOpenLoginPage()
-                .putDataToFieldEmail(email)
-                .putDataToFieldPassword(password)
+                .putDataToFieldEmail(user.getEmail())
+                .putDataToFieldPassword(user.getPassword())
                 .clickLoginButton();
-
-        accessToken = objEnterToAccount.takeAccessTokenFromLocalStorage();
     }
 
     @Test
@@ -59,25 +65,19 @@ public class PersonalAccountTest
     @Description("Переход из личного кабинета в конструктор через кнопку Конструктор")
     public void checkMoveFromPersonalAccountToHomePageTest()
     {
-        LoginPage objEnterToAccount = new LoginPage(driver);
-        objEnterToAccount
-                .openLoginPage()
-                .checkOpenLoginPage()
-                .putDataToFieldEmail(email)
-                .putDataToFieldPassword(password)
-                .clickLoginButton();
+        HomePage objEnterToAccount = new HomePage(driver);
+        objEnterToAccount.openHomePage().checkHomePage();
 
-        accessToken = objEnterToAccount.takeAccessTokenFromLocalStorage();
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
 
-        HomePage objMoveToPersonalAccount = new HomePage(driver);
-        objMoveToPersonalAccount
-                .clickButtonPersonalAccount();
+        objEnterToAccount.clickButtonPersonalAccount();
+
+        objEnterToAccount.clickButtonPersonalAccount();
 
         PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor
-                .checkPersonalAccountPage()
-                .clickConstructor();
-        objMoveToPersonalAccount.checkHomePage();
+        objMoveToConstructor.checkPersonalAccountPage().clickConstructor();
+        objEnterToAccount.checkHomePage();
     }
 
     @Test
@@ -85,25 +85,18 @@ public class PersonalAccountTest
     @Description("Переход из личного кабинета в конструктор через Логотип")
     public void checkMoveFromPersonalAccountToHomePageFromLogoTest()
     {
-        LoginPage objEnterToAccount = new LoginPage(driver);
-        objEnterToAccount
-                .openLoginPage()
-                .checkOpenLoginPage()
-                .putDataToFieldEmail(email)
-                .putDataToFieldPassword(password)
-                .clickLoginButton();
+        HomePage objEnterToAccount = new HomePage(driver);
+        objEnterToAccount.openHomePage().checkHomePage();
 
-        accessToken = objEnterToAccount.takeAccessTokenFromLocalStorage();
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
 
-        HomePage objMoveToPersonalAccount = new HomePage(driver);
-        objMoveToPersonalAccount
-                .clickButtonPersonalAccount();
+        objEnterToAccount.clickButtonPersonalAccount();
 
         PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor
-                .checkPersonalAccountPage()
-                .clickLogo();
-        objMoveToPersonalAccount.checkHomePage();
+        objMoveToConstructor.checkPersonalAccountPage().clickLogo();
+
+        objEnterToAccount.checkHomePage();
     }
 
     @Test
@@ -111,24 +104,16 @@ public class PersonalAccountTest
     @Description("Выход пользователем")
     public void checkExitUserTest()
     {
-        LoginPage objEnterToAccount = new LoginPage(driver);
-        objEnterToAccount
-                .openLoginPage()
-                .checkOpenLoginPage()
-                .putDataToFieldEmail(email)
-                .putDataToFieldPassword(password)
-                .clickLoginButton();
+        HomePage objEnterToAccount = new HomePage(driver);
+        objEnterToAccount.openHomePage().checkHomePage();
 
-        accessToken = objEnterToAccount.takeAccessTokenFromLocalStorage();
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
 
-        HomePage objMoveToPersonalAccount = new HomePage(driver);
-        objMoveToPersonalAccount
-                .clickButtonPersonalAccount();
+        objEnterToAccount.clickButtonPersonalAccount();
 
-        PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor
-                .checkPersonalAccountPage()
-                .clickExitButton();
+        PersonalAccountPage objExit = new PersonalAccountPage(driver);
+        objExit.checkPersonalAccountPage().clickExitButton();
 
         LoginPage objLogin = new LoginPage(driver);
         objLogin.checkOpenLoginPage();

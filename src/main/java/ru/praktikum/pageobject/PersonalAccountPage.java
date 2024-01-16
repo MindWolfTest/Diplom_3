@@ -2,7 +2,6 @@ package ru.praktikum.pageobject;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,7 +10,6 @@ import java.time.Duration;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.praktikum.constants.ConstantsForHomePage.TEXT_IN_PERSONAL_ACCOUNT_PAGE;
 import static ru.praktikum.constants.ProfileConst.TEXT_PROFILE_PAGE;
 
 public class PersonalAccountPage
