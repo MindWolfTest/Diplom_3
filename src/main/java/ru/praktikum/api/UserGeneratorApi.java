@@ -2,9 +2,9 @@ package ru.praktikum.api;
 
 public class UserGeneratorApi
 {
-    public static UserApi createCurrentRandomUser(String email, String password, String name)
+    public static UserModel createCurrentRandomUser(String email, String password, String name)
     {
-        return UserApi.builder()
+        return UserModel.builder()
                 .email(email)
                 .password(password)
                 .name(name)

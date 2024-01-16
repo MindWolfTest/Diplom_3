@@ -22,12 +22,9 @@ public class HomePage
     private By buttonBun = By.xpath(".//span[text() = 'Булки']");
     private By buttonSauces = By.xpath(".//span[text() = 'Соусы']");
     private By buttonFillings = By.xpath(".//span[text() = 'Начинки']");
-    private By activeButtonBun = By.xpath(".//div[contains(@class, 'tab_tab__1SPyG tab_tab_type_current__2BEPc " +
-            "pt-4 pr-10 pb-4 pl-10 noselect')]/span[text() = 'Булки']");
-    private By activeButtonSauces = By.xpath(".//div[contains(@class, 'tab_tab__1SPyG tab_tab_type_current__2BEPc " +
-            "pt-4 pr-10 pb-4 pl-10 noselect')]/span[text() = 'Соусы']");
-    private By activeButtonFillings = By.xpath(".//div[contains(@class, 'tab_tab__1SPyG tab_tab_type_current__2BEPc " +
-            "pt-4 pr-10 pb-4 pl-10 noselect')]/span[text() = 'Начинки']");
+    private By activeButtonBun = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/span[text() = 'Булки']");
+    private By activeButtonSauces = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/span[text() = 'Соусы']");
+    private By activeButtonFillings = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/span[text() = 'Начинки']");
     private By buttonPersonalAccount = By.xpath(".//a/p[text() = 'Личный Кабинет']");
     private By buttonEnterAccount = By.className("button_button__33qZ0");
     private By checkInHomePage = By.xpath(".//section[1]/h1[text() = 'Соберите бургер']");

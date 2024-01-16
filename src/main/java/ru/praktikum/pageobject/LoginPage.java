@@ -80,8 +80,7 @@ public class LoginPage
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(takeBurger));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        String accessToken = (String) js.executeScript("return window.localStorage.getItem('accessToken');");
 
-        return accessToken;
+        return (String) js.executeScript("return window.localStorage.getItem('accessToken');");
     }
 }

@@ -9,7 +9,7 @@ import static ru.praktikum.constants.URL.REGISTER_USER_API;
 public class CreateUserApi
 {
     @Step("Создание клиента {user}")
-    public Response createUserApi(UserApi user)
+    public Response createUserApi(UserModel user)
     {
         return given()
                 .header("Content-type", "application/json")

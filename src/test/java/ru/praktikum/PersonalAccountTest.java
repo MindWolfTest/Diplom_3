@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import ru.praktikum.api.CreateUserApi;
 import ru.praktikum.api.DeleteUserApi;
-import ru.praktikum.api.UserApi;
+import ru.praktikum.api.UserModel;
 import ru.praktikum.pageobject.HomePage;
 import ru.praktikum.pageobject.LoginPage;
 import ru.praktikum.pageobject.PersonalAccountPage;
@@ -33,7 +33,7 @@ public class PersonalAccountTest
     {
         driver = createWebDriver();
         RestAssured.baseURI = HOME_PAGE;
-        UserApi user = createCurrentRandomUser(email, password, name);
+        UserModel user = createCurrentRandomUser(email, password, name);
         CreateUserApi createUser = new CreateUserApi();
         createUser.createUserApi(user);
     }
@@ -74,7 +74,9 @@ public class PersonalAccountTest
                 .clickButtonPersonalAccount();
 
         PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor.clickConstructor();
+        objMoveToConstructor
+                .checkPersonalAccountPage()
+                .clickConstructor();
         objMoveToPersonalAccount.checkHomePage();
     }
 
@@ -98,7 +100,9 @@ public class PersonalAccountTest
                 .clickButtonPersonalAccount();
 
         PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor.clickLogo();
+        objMoveToConstructor
+                .checkPersonalAccountPage()
+                .clickLogo();
         objMoveToPersonalAccount.checkHomePage();
     }
 
@@ -122,7 +126,9 @@ public class PersonalAccountTest
                 .clickButtonPersonalAccount();
 
         PersonalAccountPage objMoveToConstructor = new PersonalAccountPage(driver);
-        objMoveToConstructor.clickExitButton();
+        objMoveToConstructor
+                .checkPersonalAccountPage()
+                .clickExitButton();
 
         LoginPage objLogin = new LoginPage(driver);
         objLogin.checkOpenLoginPage();

@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class UserApi
+public class UserModel
 {
     private String email;
     private String password;
