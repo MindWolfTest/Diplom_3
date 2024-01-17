@@ -13,6 +13,7 @@ import java.time.Duration;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.praktikum.constants.ConstantsForHomePage.TEXT_IN_PERSONAL_ACCOUNT_PAGE;
+import static ru.praktikum.constants.TimeForWait.WAITING_TIME;
 import static ru.praktikum.constants.URL.HOME_PAGE;
 import static ru.praktikum.constants.URL.LOGIN_PAGE;
 
@@ -41,7 +42,7 @@ public class LoginPage
     @Step("Проверка что открылась страница входа в личный кабинет")
     public LoginPage checkOpenLoginPage()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(checkLoginPage));
         String receivedTextFromPersonalAccountPage = driver.findElement(checkLoginPage).getText();
         assertThat("\nОшибка!\nСтраница не открылась!", receivedTextFromPersonalAccountPage, containsString(TEXT_IN_PERSONAL_ACCOUNT_PAGE));
@@ -51,7 +52,7 @@ public class LoginPage
     @Step("Ввод данных в поле Email {email}")
     public LoginPage putDataToFieldEmail(String email)
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(inputEmailField));
         driver.findElement(inputEmailField).sendKeys(email);
         return this;
@@ -60,15 +61,15 @@ public class LoginPage
     @Step("Ввод данных в поле Пароль {password}")
     public LoginPage putDataToFieldPassword(String password)
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(inputEmailField));
         driver.findElement(inputPasswordField).sendKeys(password);
         return this;
     }
 
-    @Step("Клик кнопка войти")
+    @Step("Клик по кнопке войти")
     public LoginPage clickLoginButton()
-    {new WebDriverWait(driver, Duration.ofSeconds(5))
+    {new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
             .until(ExpectedConditions.elementToBeClickable(enterButton));
         driver.findElement(enterButton).click();
         return this;
@@ -77,7 +78,7 @@ public class LoginPage
     @Step("Получение accessToken")
     public String takeAccessTokenFromLocalStorage()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(takeBurger));
         JavascriptExecutor js = (JavascriptExecutor) driver;
 

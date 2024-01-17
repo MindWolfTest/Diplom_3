@@ -11,6 +11,7 @@ import java.time.Duration;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.praktikum.constants.ConstantsForHomePage.*;
+import static ru.praktikum.constants.TimeForWait.WAITING_TIME;
 import static ru.praktikum.constants.URL.HOME_PAGE;
 import static ru.praktikum.constants.URL.ORDER_PAGE;
 
@@ -49,7 +50,7 @@ public class HomePage
     @Step("Проверка что открылась страница Конструктора")
     public HomePage checkHomePage()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(checkInHomePage));
         String receivedTextFromHomePage = driver.findElement(checkInHomePage).getText();
         assertThat("\nОшибка!\nСтраница не открылась!", receivedTextFromHomePage, containsString(TEXT_IN_HOME_PAGE));
@@ -59,7 +60,7 @@ public class HomePage
     @Step("Клик на кнопку Лента Заказов")
     public HomePage enterToOrderPageFromHeader()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonOrderPage))
                 .click();
         return this;
@@ -68,7 +69,7 @@ public class HomePage
     @Step("Проверка что открылась страница с заказами")
     public HomePage checkOpenOrderPageButton()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(checkInOrderPage));
         String receivedTextFromOrderPage = driver.findElement(checkInOrderPage).getText();
         assertThat("\nОшибка!\nСтраница не открылась!", receivedTextFromOrderPage, containsString(TEXT_IN_ORDER_PAGE));
@@ -78,7 +79,7 @@ public class HomePage
     @Step("Клик по кнопке Булки")
     public HomePage clickButtonBun()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonBun))
                 .click();
         return this;
@@ -87,7 +88,7 @@ public class HomePage
     @Step("Проверка прокрутки Булки")
     public HomePage checkButtonBun()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(activeButtonBun));
         return this;
     }
@@ -95,7 +96,7 @@ public class HomePage
     @Step("Клик по кнопке Соусы")
     public HomePage clickButtonSauces()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonSauces))
                 .click();
         return this;
@@ -104,7 +105,7 @@ public class HomePage
     @Step("Проверка прокрутки Соусы")
     public HomePage checkButtonSauces()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(activeButtonSauces));
         return this;
     }
@@ -112,7 +113,7 @@ public class HomePage
     @Step("Клик по кнопке Начинки")
     public HomePage clickButtonFillings()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonFillings))
                 .click();
         return this;
@@ -121,7 +122,7 @@ public class HomePage
     @Step("Проверка прокрутки Начинки")
     public HomePage checkButtonFillings()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(activeButtonFillings));
         return this;
     }
@@ -129,7 +130,7 @@ public class HomePage
     @Step("Клик по кнопке Личный Кабинет")
     public HomePage clickButtonPersonalAccount()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonPersonalAccount))
                 .click();
         return this;
@@ -138,7 +139,7 @@ public class HomePage
     @Step("Клик по кнопке Войти в аккаунт")
     public HomePage clickButtonEnterAccount()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(buttonEnterAccount))
                 .click();
         return this;

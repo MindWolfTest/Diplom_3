@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static ru.praktikum.constants.TimeForWait.WAITING_TIME;
 import static ru.praktikum.constants.URL.*;
 
 public class RecoveryPage
@@ -30,7 +31,7 @@ public class RecoveryPage
     @Step("Клик по кнопке войти")
     public RecoveryPage clickEnterButton()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(WAITING_TIME))
                 .until(ExpectedConditions.elementToBeClickable(enterButton))
                 .click();
         return this;
