@@ -58,6 +58,13 @@ public class PersonalAccountTest
                 .putDataToFieldEmail(user.getEmail())
                 .putDataToFieldPassword(user.getPassword())
                 .clickLoginButton();
+        HomePage homePage =new HomePage(driver);
+        homePage
+                .checkHomePage()
+                .clickButtonPersonalAccount();
+
+        PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
+        personalAccountPage.checkPersonalAccountPage();
     }
 
     @Test
